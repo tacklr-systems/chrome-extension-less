@@ -2,38 +2,64 @@
 <html>
 <head>
 <title>Inline LESS test</title>
-<style type="text/css">
-	h1 { color: red; }
-</style>
 
-<style type="text/less">
-	#content {
-		h1 {
-			color: blue;
-			&.header { text-decoration: underline; }
-		}
-		h2 { color: green; }
-		p { font-style: italic; }
-	}
-</style>
-
-<style type="text/less" id="take-2">
-	body { font-family: Arial, Helvetica, sans-serif; }
-</style>
-
-<style type="text/less" id="invalid-less">
-	body { color: blue;
-</style>
+<link rel="stylesheet" href="test.less" type="text/less" media="all">
 
 </head>
 <body>
 
-	<div id="content">
-		<h1 class="header">LESSified!</h1>
-		<h2>...is what this page has been.</h2>
+	<div>
+		<h1>Chrome LESS Extension!</h1>
 
-		<p>This is a test paragraph.</p>
+		<p>If working you should see box positioned and colored below</p>
 	</div>
+
+	<div class="box">
+		<div class="top-left red">.top-left .red</div>
+		<div class="top-right navy">.top-right.navy</div>
+		<div class="bottom">
+			<div class="left green">.bottom .left .green</div>
+			<div class="right"><div class="blue">.bottom&gt;.right&gt;.blue</div></div>
+		</div>
+	</div>
+
+	<h2>Contents of test.html</h2>
+	<pre>
+		&lt;link rel=&quot;stylesheet&quot; href=&quot;test.less&quot; type=&quot;text/less&quot; media=&quot;all&quot;&gt;
+
+		&lt;div class=&quot;box&quot;&gt;
+			&lt;div class=&quot;top-left red&quot;&gt;.top-left .red&lt;/div&gt;
+			&lt;div class=&quot;top-right navy&quot;&gt;.top-right.navy&lt;/div&gt;
+			&lt;div class=&quot;bottom&quot;&gt;
+				&lt;div class=&quot;left green&quot;&gt;.bottom .left .green&lt;/div&gt;
+				&lt;div class=&quot;right&quot;&gt;&lt;div class=&quot;blue&quot;&gt;.bottom&amp;gt;.right&amp;gt;.blue&lt;/div&gt;&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	</pre>
+
+	<h2>Contents of test.less</h2>
+	<pre>
+	{
+		display: inline-block;
+		position: relative;
+		width: 400px;
+		height: 400px;
+		border: solid 1px #cacaca;
+
+		& > * { display: inline-block; }
+
+		.top-left { position: absolute; top: 5px; left: 5px; }
+		.top-right { position: absolute; top: 5px; right: 5px; }
+		.bottom { position: absolute; height: 20px; left: 0; bottom: 0; right: 0; }
+		.bottom .left { position: absolute;  left: 5px; }
+		.bottom .right { position: absolute;  right: 5px; }
+
+		.red { color: red; }
+		.top-right.navy { color: navy; }
+		.bottom .left .green { color: green; }
+		.bottom>.right>.blue { color: blue; }
+	}
+	</pre>
 
 </body>
 </html>
